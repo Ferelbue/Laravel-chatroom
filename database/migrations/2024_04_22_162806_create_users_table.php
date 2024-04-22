@@ -20,10 +20,8 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->string('is_active');
-            $table->unsignedBigInteger('role_id');
+            $table->enum('role', ['super-admin','admin', 'user'])->default('user');
             $table->timestamps();
-
-            $table->foreign('role_id')->references('id')->on('role')->onDelete('cascade');
         });
     }
 
