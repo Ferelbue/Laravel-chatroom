@@ -60,4 +60,45 @@ class GameController extends Controller
         );
         }
     }
+
+    public function updateGamesById(Request $request, $id) {
+        try {
+            $gameId = $id;
+
+            $gameTitle = $request->input('title');
+            $gameDescription = $request->input('description');
+
+            $game = Game::find($gameId);
+
+            //Validacion de que existe la tarea
+            if($gameTitle) {
+                $game->title = $gameTitle;
+            }
+
+            if($gameDescription) {
+                $game->description = $gameDescription;
+            }
+
+            $game->save();
+
+            return response()->json(
+                [
+                    "success" => true,
+                    "message" => "Games updated successfully",
+                    "data" => $game
+                ],
+                200
+            );
+
+        } catch (\Throwable $th) {
+            return response()->json(
+            [
+                "success" => false,
+                "message" => "Games cant be updated successfully",
+                "error" => $th->getMessage()
+            ],
+            500
+        );
+        }
+    }
 }
