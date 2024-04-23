@@ -28,3 +28,4 @@ Route::delete('/games/{id}', [GameController::class, 'deleteGame']);
 
 // ROOM ROUTES
 Route::post('/rooms', [RoomController::class, 'createRoom']);
+Route::get('/rooms', [RoomController::class, 'getRooms']);

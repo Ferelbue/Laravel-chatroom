@@ -37,4 +37,29 @@ class RoomController extends Controller
             );
         }
     }
+
+    public function getRooms()
+    {
+        try {
+            $rooms = Room::all();
+    
+            return response()->json(
+                [
+                    "Success" => true,
+                    "Message" => "Rooms retrieved successfully",
+                    "Data" => $rooms
+                ],
+                200
+            );
+        } catch (\Throwable $th) {
+            return response()->json(
+                [
+                    "Success" => false,
+                    "Message" => "An error occurred",
+                    "Data" => $th->getMessage()
+                ],
+                500
+            );
+        }
+    }
 }
