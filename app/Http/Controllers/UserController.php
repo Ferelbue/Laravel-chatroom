@@ -93,4 +93,30 @@ class UserController extends Controller
         );
         }
     }
+
+    public function deleteUsersById($id) {
+        try {
+            $userId = $id;
+            $user = User::find($userId);
+            $user->delete();
+
+            return response()->json(
+                [
+                    "success" => true,
+                    "message" => "Users deleted successfully",
+                    "data" => $user
+                ],
+                200
+            );
+        } catch (\Throwable $th) {
+            return response()->json(
+            [
+                "success" => false,
+                "message" => "Users cant be deleted successfully",
+                "error" => $th->getMessage()
+            ],
+            500
+        );
+        }
+    }
 }
