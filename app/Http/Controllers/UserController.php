@@ -10,13 +10,13 @@ class UserController extends Controller
     public function getAllUsers()
     {
         try {
-            $games = User::all();
+            $user = User::all();
 
             return response()->json(
                 [
                     "success" => true,
-                    "message" => "Games retrieved successfully",
-                    "data" => $games,
+                    "message" => "Users retrieved successfully",
+                    "data" => $user,
                 ],
                 200 // HTTP Status Code
             );
@@ -24,7 +24,7 @@ class UserController extends Controller
             return response()->json(
                 [
                     "success" => false,
-                    "message" => "Games retrieved unsuccessfully",
+                    "message" => "Users retrieved unsuccessfully",
                     "error" => $th->getMessage(),
                 ],
                 500 // HTTP Status Code
@@ -36,20 +36,24 @@ class UserController extends Controller
     {
         try {
             $validated = $request->validate([
-                'title' => 'required|max:50',
-                'description' => 'required|max:255',
+                'name' => 'required|max:50',
+                'nickName' => 'required|max:50',
+                'email' => 'required|email',
+                'password' => 'required|min:8',
             ]);
 
-            $game = new User();
-            $game->title = $request->input('title');
-            $game->description = $request->input('description');
-            $game->save();
+            $user = new User();
+            $user->name = $request->input('name');
+            $user->nickName = $request->input('nickName');
+            $user->email = $request->input('email');
+            $user->password = $request->input('password');
+            $user->save();
 
             return response()->json(
                 [
                     "success" => true,
-                    "message" => "Game created successfully",
-                    "data" => $game,
+                    "message" => "User created successfully",
+                    "data" => $user,
                 ],
                 201 // HTTP Status Code
             );
@@ -57,7 +61,7 @@ class UserController extends Controller
             return response()->json(
                 [
                     "success" => false,
-                    "message" => "Game created unsuccessfully",
+                    "message" => "User created unsuccessfully",
                     "error" => $th->getMessage(),
                 ],
                 500 // HTTP Status Code
@@ -68,24 +72,32 @@ class UserController extends Controller
     public function updateUserById($id, Request $request)
     {
         try {
-            $game = User::find($id);
-            $title = $request->input('title');
-            $description = $request->input('description');
+            $user = User::find($id);
+            $name = $request->input('name');
+            $nickName = $request->input('nickName');
+            $email = $request->input('email');
+            $password = $request->input('password');
             
-            if ($title){
-                $game->title = $title;
+            if ($name){
+                $user->name = $name;
             }
 
-            if ($description){
-                $game->description = $description;
+            if ($nickName){
+                $user->nickName = $nickName;
             }
-            $game->save();
+            if ($email){
+                $user->email = $email;
+            }
+            if ($password){
+                $user->password = $password;
+            }
+            $user->save();
 
             return response()->json(
                 [
                     "success" => true,
-                    "message" => "Game updated successfully",
-                    "data" => $game,
+                    "message" => "User updated successfully",
+                    "data" => $user,
                 ],
                 200 // HTTP Status Code
             );
@@ -93,7 +105,7 @@ class UserController extends Controller
             return response()->json(
                 [
                     "success" => false,
-                    "message" => "Game updated unsuccessfully",
+                    "message" => "User updated unsuccessfully",
                     "error" => $th->getMessage(),
                 ],
                 500 // HTTP Status Code
@@ -105,14 +117,14 @@ class UserController extends Controller
     public function deleteUserById($id)
     {
         try {
-            $game = User::find($id);
-            $game->delete();
+            $user = User::find($id);
+            $user->delete();
 
             return response()->json(
                 [
                     "success" => true,
-                    "message" => "Game deleted successfully",
-                    "data" => $game,
+                    "message" => "User deleted successfully",
+                    "data" => $user,
                 ],
                 200 // HTTP Status Code
             );
@@ -120,7 +132,7 @@ class UserController extends Controller
             return response()->json(
                 [
                     "success" => false,
-                    "message" => "Game deleted unsuccessfully",
+                    "message" => "User deleted unsuccessfully",
                     "error" => $th->getMessage(),
                 ],
                 500 // HTTP Status Code
