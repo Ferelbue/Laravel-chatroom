@@ -30,4 +30,34 @@ class GameController extends Controller
         );
         }
     }
+
+    public function createGames(Request $request) {
+
+        try {
+            $game = new Game;
+            $game->title = $request->input('title');
+            $game->description = $request->input('description');
+
+            $game->save();
+
+            return response()->json(
+                [
+                    "success" => true,
+                    "message" => "Games created successfully",
+                    "data" => $game
+                ],
+                200
+            );
+            
+        } catch (\Throwable $th) {
+            return response()->json(
+            [
+                "success" => false,
+                "message" => "Games cant be created successfully",
+                "error" => $th->getMessage()
+            ],
+            500
+        );
+        }
+    }
 }
