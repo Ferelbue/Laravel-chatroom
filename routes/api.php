@@ -3,6 +3,7 @@
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\RoomController;
+use App\Http\Controllers\RoomUserController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -37,6 +38,6 @@ Route::put('/chats/{id}', [ChatController::class, 'updateChatById']);
 Route::delete('/chats/{id}', [ChatController::class, 'deleteChatById']);
 
 // ROOM_USER ROUTES
-Route::get('/rooms/{room_id}/users', [RoomController::class, 'getAllUsersByRoomId']);
-Route::get('/rooms/room/{user_id}', [RoomController::class, 'getAllRoomsByUserId']);
+Route::get('/rooms/{room_id}/users', [RoomUserController::class, 'getAllUsersByRoomId']);
+Route::get('/rooms/room/{user_id}', [RoomUserController::class, 'getAllRoomsByUserId']);
 
