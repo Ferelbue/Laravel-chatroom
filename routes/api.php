@@ -21,3 +21,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('/games', [GameController::class, 'createGame']);
 Route::get('/games', [GameController::class, 'getGames']);
+Route::put('/games/{id}', [GameController::class, 'editGame']);
