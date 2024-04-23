@@ -62,4 +62,74 @@ class RoomController extends Controller
             );
         }
     }
+
+    // NYI
+    public function joinLeaveRoom(Request $request, $id)
+    {
+        try {
+            $room = Room::find($id);
+            $user = $request->user();
+    
+            if ($room->users->contains($user)) {
+                $room->users()->detach($user->id);
+                $message = "User left room";
+            } else {
+                $room->users()->attach($user->id);
+                $message = "User joined room";
+            }
+    
+            return response()->json(
+                [
+                    "Success" => true,
+                    "Message" => $message,
+                    "Data" => $room
+                ],
+                200
+            );
+        } catch (\Throwable $th) {
+            return response()->json(
+                [
+                    "Success" => false,
+                    "Message" => "An error occurred",
+                    "Data" => $th->getMessage()
+                ],
+                500
+            );
+        }
+    }
+
+    public function deleteRoom($id)
+    {
+        try {
+            $room = Room::find($id);
+            if (!$room) {
+                return response()->json(
+                    [
+                        "Success" => false,
+                        "Message" => "Room not found",
+                    ],
+                    404
+                );
+            }
+            
+            $room->delete();
+    
+            return response()->json(
+                [
+                    "Success" => true,
+                    "Message" => "Room deleted successfully",
+                ],
+                200
+            );
+        } catch (\Throwable $th) {
+            return response()->json(
+                [
+                    "Success" => false,
+                    "Message" => "An error occurred",
+                    "Data" => $th->getMessage()
+                ],
+                500
+            );
+        }
+    }
 }
