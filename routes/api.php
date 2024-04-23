@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\GameController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +15,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+
+Route::get('/', function () {
+    return view('welcome');
 });
+
+Route::get('/games', [GameController:: class, 'getAllGames']);
+Route::post('/games', [GameController:: class, 'createGames']);
+Route::put('/games/{id}', [GameController:: class,'updateGamesById']);
+Route::delete('/games/{id}', [GameController:: class,'deleteGamesById']);
