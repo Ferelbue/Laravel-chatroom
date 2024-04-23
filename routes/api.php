@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\GameController;
+use App\Http\Controllers\RoomController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,6 +20,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+// GAME ROUTES
 Route::post('/games', [GameController::class, 'createGame']);
 Route::get('/games', [GameController::class, 'getGames']);
 Route::put('/games/{id}', [GameController::class, 'editGame']);
+Route::delete('/games/{id}', [GameController::class, 'deleteGame']);
+
+// ROOM ROUTES
+Route::post('/rooms', [RoomController::class, 'createRoom']);
