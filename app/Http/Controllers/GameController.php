@@ -101,4 +101,31 @@ class GameController extends Controller
         );
         }
     }
+
+    public function deleteGamesById($id) {
+        try{
+            $gameDelete = Game::find($id);
+
+            $gameDelete->delete();
+
+            return response()->json(
+                [
+                    "success" => true,
+                    "message" => "Games delete successfully",
+                    "data" => $gameDelete
+                ],
+                200
+            );
+
+        } catch (\Throwable $th) {
+            return response()->json(
+            [
+                "success" => false,
+                "message" => "Games cant be delete successfully",
+                "error" => $th->getMessage()
+            ],
+            500
+        );
+        }
+    }
 }
