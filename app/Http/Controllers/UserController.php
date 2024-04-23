@@ -62,4 +62,35 @@ class UserController extends Controller
         );
         }
     }
+
+    public function updateUsersById(Request $request, $id) {
+        try {
+            $userId = $id;
+            $user = User::find($userId);
+            $user->name = $request->input('name');
+            $user->nickname = $request->input('nickname');
+            $user->email = $request->input('email');
+            $user->password = $request->input('password');
+
+            $user->save();
+
+            return response()->json(
+                [
+                    "success" => true,
+                    "message" => "Users updated successfully",
+                    "data" => $user
+                ],
+                200
+            );
+        } catch (\Throwable $th) {
+            return response()->json(
+            [
+                "success" => false,
+                "message" => "Users cant be updated successfully",
+                "error" => $th->getMessage()
+            ],
+            500
+        );
+        }
+    }
 }
