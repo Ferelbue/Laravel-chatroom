@@ -18,19 +18,13 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-
+            'name' => $this->faker->name,
+            'nickName' => $this->faker->userName,
+            'email' => $this->faker->unique()->safeEmail,
+            'password' => '$10$RffoehBoXaXy/SrY0MRnF.mmSm10iO9D64.06ND4dvq2UMshGkIim',
+            'is_active' => 'true',
+            'role' => 'user',
         ];
     }
 
-    /**
-     * Indicate that the model's email address should be unverified.
-     *
-     * @return static
-     */
-    public function unverified()
-    {
-        return $this->state(fn (array $attributes) => [
-
-        ]);
-    }
 }

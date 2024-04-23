@@ -1,9 +1,8 @@
 <?php
-
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Faker\Factory as Faker;
+use Faker\Factory as Faker; 
 
 class DatabaseSeeder extends Seeder
 {
@@ -14,19 +13,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $faker = Faker::create();
-
-        for ($i = 0; $i < 12; $i++) {
-            \App\Models\User::factory()->create([
-                'name' => $faker->name,
-                'nickName' => $faker->userName,
-                'email' => $faker->unique()->safeEmail,
-                'password' => bcrypt('password'),
-                'is_active' => 'true',
-                'role' => 'user',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
-        }
+        \App\Models\Game::factory(20)->create();
+        \App\Models\User::factory(40)->create();
     }
 }
