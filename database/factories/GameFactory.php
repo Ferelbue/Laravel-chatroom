@@ -17,9 +17,8 @@ class GameFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->name,
+            'title' => $this->faker->name,
             'description' => $this->faker->text,
-            'user_id' => rand(1, 10), // We need to change this to match number of users in factory
         ];
     }
 }
