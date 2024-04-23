@@ -13,15 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('room_user', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('nickname')->unique();
-            $table->string('email')->unique();
-            $table->string('password');
-            $table->boolean('is_active')->default(true);
-            $table->enum('role', ['user', 'admin', 'super_admin'])->default('user');
+            $table->unsignedBigInteger('room_id');
+            $table->unsignedBigInteger('user_id');
             $table->timestamps();
+
+            $table->foreign('room_id')->references('id')->on('rooms')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
@@ -32,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('room_user');
     }
 };
