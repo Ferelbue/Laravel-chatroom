@@ -43,6 +43,6 @@ class User extends Authenticatable
     ];
     public function rooms()
     {
-        return $this->hasMany(RoomModel::class);
+        return $this->hasMany(Room::class);
     }
 }
