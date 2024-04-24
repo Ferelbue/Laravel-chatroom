@@ -124,4 +124,38 @@ class GameController extends Controller
             );
         }
     }
+
+    public function getGameById($id) {
+        try {
+            $game = Game::find($id);
+
+            if (!$game) {
+                return response()->json(
+                    [
+                        "Success" => false,
+                        "Message" => "Game not found",
+                    ],
+                    404
+                );
+            }
+
+            return response()->json(
+                [
+                    "success" => true,
+                    "message" => "Game updated",
+                    "data" => $game
+                ],
+                200
+            );
+        } catch (\Throwable $th) {
+            return response()->json(
+                [
+                    "success" => true,
+                    "message" => "Error retrieving game by id",
+                    "error" => $th->getMessage()
+                ],
+                500
+            );
+        }
+    }
 }
