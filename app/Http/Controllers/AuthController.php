@@ -199,4 +199,37 @@ class AuthController extends Controller
             );
         }
     }
+
+    public function logout(Request $request)
+    {
+        try {
+
+            // TODOS LOS TOKENS DEL USER
+            $request->user()->tokens()->delete();
+
+            // TOKEN ACTUAL
+            // $request->user()->currentAccessToken()->delete();
+
+
+            return response()->json(
+                [
+                    'succes' => true,
+                    'message' => 'User logged out successfully'
+                ],
+                200
+            );
+        } catch (\Throwable $th) {
+
+            Log::error($th->getMessage());
+
+            return response()->json(
+                [
+                    'succes' => false,
+                    'message' => 'Error logging out user',
+                    'error' => $th->getMessage()
+                ],
+                500
+            );
+        }
+    }
 }
