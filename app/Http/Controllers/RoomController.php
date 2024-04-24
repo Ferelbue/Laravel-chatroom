@@ -186,16 +186,51 @@ class RoomController extends Controller
                     404
                 );
             }
-            $validatedData = $request->validate([
-                'user_id' => 'required|exists:users,id',
-            ]);
+            $userId = auth()->user()->id;
             
-            $room->users()->attach($validatedData['user_id']);
+            $room->users()->attach($userId);
     
             return response()->json(
                 [
                     "Success" => true,
                     "Message" => "User joined room successfully",
+                    "Data" => $room
+                ],
+                200
+            );
+        } catch (\Throwable $th) {
+            return response()->json(
+                [
+                    "Success" => false,
+                    "Message" => "An error occurred",
+                    "Data" => $th->getMessage()
+                ],
+                500
+            );
+        }
+    }
+
+    public function leaveRoom(Request $request, $id)
+    {
+        try {
+            $room = Room::find($id);
+            if (!$room) {
+                return response()->json(
+                    [
+                        "Success" => false,
+                        "Message" => "Room not found",
+                    ],
+                    404
+                );
+            }
+            $userId = auth()->user()->id;
+            
+            $room->users()->detach($userId);
+    
+            return response()->json(
+                [
+                    "Success" => true,
+                    "Message" => "User left room successfully",
                     "Data" => $room
                 ],
                 200

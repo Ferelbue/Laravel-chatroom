@@ -5,7 +5,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Game>
  */
 class GameFactory extends Factory
 {
@@ -17,8 +17,8 @@ class GameFactory extends Factory
     public function definition()
     {
         return [
-            'title' => $this->faker->name,
-            'description' => $this->faker->text,
+            'title' => $this->faker->sentence(3),
+            'description' => $this->faker->paragraph(1)
         ];
     }
 }
