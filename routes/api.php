@@ -30,4 +30,9 @@ Route::delete('/games/{id}', [GameController::class, 'deleteGame']);
 Route::post('/rooms', [RoomController::class, 'createRoom']);
 Route::get('/rooms', [RoomController::class, 'getRooms']);
 // Route::put('/rooms/{id}', [RoomController::class, 'joinLeaveRoom']);
+Route::put('/rooms/{id}', [RoomController::class, 'editRoom']);
 Route::delete('/rooms/{id}', [RoomController::class, 'deleteRoom']);
+Route::get('/rooms/{id}', [RoomController::class, 'getRoom']);
+Route::post('/rooms/{id}/join', [RoomController::class, 'joinRoom'])->middleware('auth:sanctum');
+
+

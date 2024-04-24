@@ -63,41 +63,6 @@ class RoomController extends Controller
         }
     }
 
-    // NYI
-    public function joinLeaveRoom(Request $request, $id)
-    {
-        try {
-            $room = Room::find($id);
-            $user = $request->user();
-    
-            if ($room->users->contains($user)) {
-                $room->users()->detach($user->id);
-                $message = "User left room";
-            } else {
-                $room->users()->attach($user->id);
-                $message = "User joined room";
-            }
-    
-            return response()->json(
-                [
-                    "Success" => true,
-                    "Message" => $message,
-                    "Data" => $room
-                ],
-                200
-            );
-        } catch (\Throwable $th) {
-            return response()->json(
-                [
-                    "Success" => false,
-                    "Message" => "An error occurred",
-                    "Data" => $th->getMessage()
-                ],
-                500
-            );
-        }
-    }
-
     public function deleteRoom($id)
     {
         try {
@@ -118,6 +83,120 @@ class RoomController extends Controller
                 [
                     "Success" => true,
                     "Message" => "Room deleted successfully",
+                ],
+                200
+            );
+        } catch (\Throwable $th) {
+            return response()->json(
+                [
+                    "Success" => false,
+                    "Message" => "An error occurred",
+                    "Data" => $th->getMessage()
+                ],
+                500
+            );
+        }
+    }
+
+    public function editRoom(Request $request, $id)
+    {
+        try {
+            $room = Room::find($id);
+            if (!$room) {
+                return response()->json(
+                    [
+                        "Success" => false,
+                        "Message" => "Room not found",
+                    ],
+                    404
+                );
+            }
+            $validatedData = $request->validate([
+                'name' => 'required|max:55',
+                'user_id' => 'required|exists:users,id',
+                'game_id' => 'required|exists:games,id',
+            ]);
+            
+            $room->update($request->only($validatedData));
+    
+            return response()->json(
+                [
+                    "Success" => true,
+                    "Message" => "Room updated successfully",
+                    "Data" => $room
+                ],
+                200
+            );
+        } catch (\Throwable $th) {
+            return response()->json(
+                [
+                    "Success" => false,
+                    "Message" => "An error occurred",
+                    "Data" => $th->getMessage()
+                ],
+                500
+            );
+        }
+    }
+
+    public function getRoom($id)
+    {
+        try {
+            $room = Room::find($id);
+            if (!$room) {
+                return response()->json(
+                    [
+                        "Success" => false,
+                        "Message" => "Room not found",
+                    ],
+                    404
+                );
+            }
+    
+            return response()->json(
+                [
+                    "Success" => true,
+                    "Message" => "Room retrieved successfully",
+                    "Data" => $room
+                ],
+                200
+            );
+        } catch (\Throwable $th) {
+            return response()->json(
+                [
+                    "Success" => false,
+                    "Message" => "An error occurred",
+                    "Data" => $th->getMessage()
+                ],
+                500
+            );
+        }
+    }
+
+    public function joinRoom(Request $request, $id)
+    {
+        try {
+            $room = Room::find($id);
+            if (!$room) {
+                return response()->json(
+                    [
+                        "Success" => false,
+                        "Message" => "Room not found",
+                    ],
+                    404
+                );
+            }
+            $validatedData = $request->validate([
+                'user_id' => 'required|exists:users,id',
+            ]);
+            
+            $room->users()->attach($validatedData['user_id']);
+    
+            return response()->json(
+                [
+                    "Success" => true,
+                    "Message" => "User joined room successfully",
+                    "Data" => $room
                 ],
                 200
             );
