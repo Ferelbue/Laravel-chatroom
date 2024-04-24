@@ -35,6 +35,10 @@ class GameController extends Controller
             $game->title = $request->input('title');
             $game->description = $request->input('description');
 
+///////////////////
+        //   $game -> user_id = auth()->user()->id;
+////////////////////
+
             $game->save();
 
             return response()->json(
@@ -96,7 +100,12 @@ class GameController extends Controller
     public function getAllGames()
     {
         try {
-            $games = Game::all();
+            $games = Game:: all();
+            
+            // $games = Game:: query()
+            // -> select('id', 'title', 'description', 'user_id')
+            // -> where('user_id', auth())->user()->id)
+            // ->get();
 
             return response()->json(
                 [
