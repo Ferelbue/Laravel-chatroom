@@ -27,11 +27,11 @@ Route::middleware(['auth:sanctum'])->group(function () {
 // Route::delete('/games/{id}', [GameController::class, 'deleteGame']);
 
 // ROOM ROUTES
-Route::post('/rooms', [RoomController::class, 'createRoom']);
+Route::post('/rooms', [RoomController::class, 'createRoom'])->middleware('auth:sanctum');
 Route::get('/rooms', [RoomController::class, 'getRooms']);
 // Route::put('/rooms/{id}', [RoomController::class, 'joinLeaveRoom']);
-Route::put('/rooms/{id}', [RoomController::class, 'editRoom']);
-Route::delete('/rooms/{id}', [RoomController::class, 'deleteRoom']);
+Route::put('/rooms/{id}', [RoomController::class, 'editRoom'])->middleware('auth:sanctum');
+Route::delete('/rooms/{id}', [RoomController::class, 'deleteRoom'])->middleware('auth:sanctum');
 Route::get('/rooms/{id}', [RoomController::class, 'getRoom']);
 Route::post('/rooms/{id}/join', [RoomController::class, 'joinRoom'])->middleware('auth:sanctum');
 Route::post('/rooms/{id}/leave', [RoomController::class, 'leaveRoom'])->middleware('auth:sanctum');
