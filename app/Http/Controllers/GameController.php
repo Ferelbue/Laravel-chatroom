@@ -36,7 +36,8 @@ class GameController extends Controller
         }
     }
 
-    public function deleteGameById($id) {
+    public function deleteGameById($id)
+    {
         try {
             $deleteGame = Game::destroy($id);
 
@@ -60,7 +61,8 @@ class GameController extends Controller
         }
     }
 
-    public function getAllGames() {
+    public function getAllGames()
+    {
         try {
             $games = Game::all();
 
@@ -77,6 +79,45 @@ class GameController extends Controller
                 [
                     "success" => true,
                     "message" => "Error retrieving games",
+                    "error" => $th->getMessage()
+                ],
+                500
+            );
+        }
+    }
+
+    public function updateGame(Request $request, $id)
+    {
+        try {
+            $game = Game::find($id);
+
+            if (!$game) {
+                return response()->json(
+                    [
+                        "Success" => false,
+                        "Message" => "Game not found",
+                    ],
+                    404
+                );
+            }
+
+            $toUpdate = $request->only(['title', 'description']);
+
+            $game->update($toUpdate);
+
+            return response()->json(
+                [
+                    "success" => true,
+                    "message" => "Game updated",
+                    "data" => $game
+                ],
+                200
+            );
+        } catch (\Throwable $th) {
+            return response()->json(
+                [
+                    "success" => true,
+                    "message" => "Error updating games",
                     "error" => $th->getMessage()
                 ],
                 500

@@ -23,3 +23,4 @@ use Illuminate\Support\Facades\Route;
 Route::post('/games', [GameController::class, 'createGame']);
 Route::delete('/games/{id}', [GameController::class, 'deleteGameById']);
 Route::get('/games', [GameController::class, 'getAllGames']);
+Route::put('/games/{id}', [GameController::class, 'updateGame']);
