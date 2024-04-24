@@ -29,7 +29,31 @@ class GameController extends Controller
                 [
                     "success" => true,
                     "message" => "Error creating game",
-                    "data" => $game
+                    "error" => $th->getMessage()
+                ],
+                500
+            );
+        }
+    }
+
+    public function deleteGameById($id) {
+        try {
+            $deleteGame = Game::destroy($id);
+
+            return response()->json(
+                [
+                    "success" => true,
+                    "message" => "Games deleted successfully",
+                    "data" => $deleteGame
+                ],
+                200
+            );
+        } catch (\Throwable $th) {
+            return response()->json(
+                [
+                    "success" => true,
+                    "message" => "Error deleting game",
+                    "error" => $th->getMessage()
                 ],
                 500
             );
