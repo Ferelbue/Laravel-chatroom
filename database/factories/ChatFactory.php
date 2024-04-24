@@ -18,8 +18,8 @@ class ChatFactory extends Factory
     {
         return [
             'message' => $this->faker->sentence(3),
-            'user_id' => rand(1, 20),
-            'room_id' => rand(1, 20),
+            'user_id' => rand(1, 10),
+            'room_id' => rand(1, 5),
         ];
     }
 }
