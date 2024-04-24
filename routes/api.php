@@ -30,6 +30,7 @@ Route::get('/rooms', [RoomController::class, 'getAllRooms']);
 Route::post('/rooms', [RoomController::class, 'createRoom']);
 Route::put('/rooms/{id}', [RoomController::class, 'updateRoomById']);
 Route::delete('/rooms/{id}', [RoomController::class, 'deleteRoomById']);
+Route::put('/rooms/join/{id}', [RoomController::class, 'joinRoomById']);
 
 // CHAT ROUTES
 Route::get('/chats', [ChatController::class, 'getAllChats']);
