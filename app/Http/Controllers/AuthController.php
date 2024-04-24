@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Auth\Events\Login;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -16,28 +15,19 @@ class AuthController extends Controller
         try {
             Log::info("Registering user" . $request->input('name'));
 
-            //Recuperar info
+            //Read info
             $name = $request->input('name');
             $nickname = $request->input('nickname');
             $email = $request->input('email');
             $password = $request->input('password');
-
-
-            //validar info
-            // $request->validate([
-            //     'name' => 'required|string',
-            //     'nickname' => 'required|string',
-            //     'email' => 'required|email',
-            //     'password' => 'required'
-            // ]);
-
+            //Validate info
             $validator = Validator::make($request->all(), [
                 'name' => 'required|unique:users|max:50',
                 'nickname' => 'required|string',
                 'email' => 'required|unique:users|email',
                 'password' => 'required|min:6'
             ]);
-
+            //check if validation fails
             if ($validator->fails()) {
                 return response()->json(
                     [
@@ -49,21 +39,18 @@ class AuthController extends Controller
                 );
             }
 
-            // Tratar info
+            // Treatment info
             $hashPassword = bcrypt($password);
 
-            //Guardar info
+            //Save info
             $newUser = new User();
-
             $newUser->name = $name;
             $newUser->nickname = $nickname;
             $newUser->email = $email;
             $newUser->password = $hashPassword;
-
             $newUser->save();
 
-            //Enviar respuesta
-
+            //Send response
             return response()->json(
                 [
                     'succes' => true,
@@ -90,18 +77,20 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         try {
+            //Log fill
             Log::info("Logging in user" . $request->input('email'));
 
-            //Recuperar info
+            //Read info
             $email = $request->input('email');
             $password = $request->input('password');
 
-            //validar info
+            //validate info
             $validator = Validator::make($request->all(), [
                 'email' => 'required|email',
                 'password' => 'required'
             ]);
 
+            //check if validation fails
             if ($validator->fails()) {
                 return response()->json(
                     [
@@ -113,9 +102,9 @@ class AuthController extends Controller
                 );
             }
 
-            //Buscar usuario
+            //search usuario
             $user = User::where('email', $email)->firstOrfail();
-
+            //check if user exists
             if (!$user) {
                 return response()->json(
                     [
@@ -127,9 +116,9 @@ class AuthController extends Controller
                 );
             }
 
-            //Comprobar contraseña
+            //Cheack password
             $checkPasswordUser = Hash::check($password, $user->password);
-
+            //check if password is correct
             if (!$checkPasswordUser) {
                 return response()->json(
                     [
@@ -141,10 +130,10 @@ class AuthController extends Controller
                 );
             }
 
-            //Generar token
+            //Generate token
             $token = $user->createToken('auth_token')->plainTextToken;
 
-            //Enviar respuesta
+            //Send response
             return response()->json(
                 [
                     'succes' => true,
@@ -174,9 +163,9 @@ class AuthController extends Controller
     public function getProfile()
     {
         try {
-
+            //Read info from autenticated user
             $user = auth()->user();
-
+            //Send response
             return response()->json(
                 [
                     'succes' => true,
@@ -203,14 +192,13 @@ class AuthController extends Controller
     public function logout(Request $request)
     {
         try {
-
+            // REMOVE TOKEN DATA
             // TODOS LOS TOKENS DEL USER
             $request->user()->tokens()->delete();
-
             // TOKEN ACTUAL
             // $request->user()->currentAccessToken()->delete();
 
-
+            //Send response
             return response()->json(
                 [
                     'succes' => true,
