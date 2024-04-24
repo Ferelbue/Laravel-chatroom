@@ -11,13 +11,14 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-// // GAMES
-// Route::middleware(['auth:sanctum'])->group(function () {
-//     Route::post('/games', [GameController::class, 'createGame']);
-//     Route::delete('/games/{id}', [GameController::class, 'deleteGameById']);
-//     Route::get('/games', [GameController::class, 'getAllGames'])->middleware('admin');
-//     Route::get('/games/{id}', [GameController::class, 'getGameById']);
-// });
+// GAMES
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::post('/games', [GameController::class, 'createGame'])->middleware('admin');
+    Route::delete('/games/{id}', [GameController::class, 'deleteGameById'])->middleware('admin');
+    Route::get('/games', [GameController::class, 'getAllGames']);
+    Route::put('/games/{id}', [GameController::class, 'updateGame'])->middleware('admin');
+    Route::get('/games/{id}', [GameController::class, 'getGameById']);
+});
 
 // // GAME ROUTES
 // Route::post('/games', [GameController::class, 'createGame']);

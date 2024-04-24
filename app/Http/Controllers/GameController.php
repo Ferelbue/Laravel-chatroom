@@ -4,12 +4,33 @@ namespace App\Http\Controllers;
 
 use App\Models\Game;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class GameController extends Controller
 {
     public function createGame(Request $request)
     {
         try {
+
+            $validator = Validator::make(
+                $request->all, 
+                [
+                    'title' => "required",
+                    'description' => "required"
+                ]
+            );
+
+            if($validator->fails()) {
+                return response()->json(
+                    [
+                        "success" => false,
+                        "message" => "Game cant be created",
+                        "error" => $validator->errors()
+                    ],
+                    400
+                );
+            };
+
             $game = new Game;
             $game->title = $request->input('title');
             $game->description = $request->input('description');
@@ -45,14 +66,25 @@ class GameController extends Controller
         try {
             $deleteGame = Game::destroy($id);
 
+            if($deleteGame) {
+                return response()->json(
+                    [
+                        "success" => true,
+                        "message" => "Games deleted successfully",
+                        "data" => $deleteGame
+                    ],
+                    200
+                );
+            }
+
             return response()->json(
                 [
                     "success" => true,
-                    "message" => "Games deleted successfully",
+                    "message" => "Games not found",
                     "data" => $deleteGame
                 ],
-                200
-            );
+                404
+            );            
         } catch (\Throwable $th) {
             return response()->json(
                 [
