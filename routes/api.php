@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\GameController;
+use App\Http\Controllers\RoomController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,8 +20,22 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/games/{id}', [GameController::class, 'getGameById']);
 });
 
-Route::post('/register', [AuthController::class, 'register']);
-Route::post('/login', [AuthController::class, 'login']);
-Route::delete('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
+// // GAME ROUTES
+// Route::post('/games', [GameController::class, 'createGame']);
+// Route::get('/games', [GameController::class, 'getGames']);
+// Route::put('/games/{id}', [GameController::class, 'editGame']);
+// Route::delete('/games/{id}', [GameController::class, 'deleteGame']);
 
-Route::get('/profile', [AuthController::class, 'getProfile'])->middleware('auth:sanctum');
+// ROOM ROUTES
+Route::post('/rooms', [RoomController::class, 'createRoom']);
+Route::get('/rooms', [RoomController::class, 'getRooms']);
+// Route::put('/rooms/{id}', [RoomController::class, 'joinLeaveRoom']);
+Route::put('/rooms/{id}', [RoomController::class, 'editRoom']);
+Route::delete('/rooms/{id}', [RoomController::class, 'deleteRoom']);
+Route::get('/rooms/{id}', [RoomController::class, 'getRoom']);
+Route::post('/rooms/{id}/join', [RoomController::class, 'joinRoom'])->middleware('auth:sanctum');
+Route::post('/rooms/{id}/leave', [RoomController::class, 'leaveRoom'])->middleware('auth:sanctum');
+
+// AUTH ROUTES
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/register', [AuthController::class, 'register']);
