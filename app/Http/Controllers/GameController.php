@@ -70,7 +70,7 @@ class GameController extends Controller
         try {
             $games = Game:: all();
             
-            // query()
+            // $games = Game:: query()
             // -> select('id', 'title', 'description', 'user_id')
             // -> where('user_id', auth())->user()->id)
             // ->get();
