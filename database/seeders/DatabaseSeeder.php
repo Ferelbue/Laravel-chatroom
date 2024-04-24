@@ -14,7 +14,6 @@ class DatabaseSeeder extends Seeder
     {
         $games= \App\Models\Game::factory(5)->create();
         $users = \App\Models\User::factory(10)->create();
-        // \App\Models\Room::factory(5)->create();
         $rooms = \App\Models\Room::factory(5)->create()->each(function ($room) use ($users, $games) {
             $room->users()->attach($users->random()->id);
             $room->game_id = $games->random()->id;
@@ -22,9 +21,26 @@ class DatabaseSeeder extends Seeder
         });
         \App\Models\Chat::factory(10)->create();
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        \App\Models\User::factory()->create([
+            'name' => 'user',
+            'nickname' => 'user',
+            'email' => 'user@user.com',
+            'password' => bcrypt('123456'),
+            'role' => 'user'
+        ]);
+        \App\Models\User::factory()->create([
+            'name' => 'admin',
+            'nickname' => 'admin',
+            'email' => 'admin@admin.com',
+            'password' => bcrypt('123456'),
+            'role' => 'admin'
+        ]);
+        \App\Models\User::factory()->create([
+            'name' => 'superadmin',
+            'nickname' => 'superadmin',
+            'email' => 'superadmin@superadmin.com',
+            'password' => bcrypt('123456'),
+            'role' => 'super_admin'
+        ]);
     }
 }
