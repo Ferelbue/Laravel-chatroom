@@ -12,10 +12,9 @@ use Illuminate\Support\Facades\Route;
 
 // GAMES
 Route::post('/games', [GameController::class, 'createGame'])->middleware('auth:sanctum');
-Route::delete('/games/{id}', [GameController::class, 'deleteGameById']);
-Route::get('/games', [GameController::class, 'getAllGames']);
-Route::get('/games', [GameController::class, 'getAllGames']);
-Route::get('/games/{id}', [GameController::class, 'getGameById']);
+Route::delete('/games/{id}', [GameController::class, 'deleteGameById'])->middleware('auth:sanctum');
+Route::get('/games', [GameController::class, 'getAllGames'])->middleware('auth:sanctum');
+Route::get('/games/{id}', [GameController::class, 'getGameById'])->middleware('auth:sanctum');
 
 
 Route::post('/register', [AuthController::class, 'register']);
