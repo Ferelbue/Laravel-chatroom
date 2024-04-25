@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Chat;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ChatController extends Controller
@@ -46,10 +47,13 @@ class ChatController extends Controller
 
             $userId = auth()->user()->id;
 
+            $userRooms = User::find($userId)->rooms()->pluck('id')->toArray();
+
             $chats = Chat::where('room_id', $roomId)
             // ->whereHas('room.users', function ($query) use ($userId) {
             //     $query->where('users.id', $userId);
             // })
+            ->whereIn('room_id', $userRooms)
             ->with('user:id,nickname')
             ->get();
 
