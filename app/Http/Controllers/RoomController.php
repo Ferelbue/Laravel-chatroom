@@ -187,7 +187,14 @@ class RoomController extends Controller
                 'game',
                 'user:id,nickname',
                 'users:id,nickname'
-            ])->find($id);
+            ])
+            ->where('game_id', $id)
+            ->get();
+            // $room = Room::with([
+            //     'game',
+            //     'user:id,nickname',
+            //     'users:id,nickname'
+            // ])->find($id);
             if (!$room) {
                 return response()->json(
                     [
