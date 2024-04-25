@@ -13,7 +13,7 @@ class GameController extends Controller
         try {
 
             $validator = Validator::make(
-                $request->all, 
+                $request->all(), 
                 [
                     'title' => "required",
                     'description' => "required"
