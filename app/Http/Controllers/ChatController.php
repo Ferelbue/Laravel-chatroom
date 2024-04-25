@@ -41,15 +41,20 @@ class ChatController extends Controller
         }
     }
 
-    public function getAllChats()
+    public function getAllChats($roomId)
     {
         try {
 
 
             //me trae solo los mios
-            $chat = Chat::select('message', 'user_id')
-            -> where('user_id', auth()->user()->id)
-            -> get();
+            // $chat = Chat::select('message', 'user_id')
+            // -> where('user_id', auth()->user()->id)
+            // -> get();
+
+            $chat = Chat::join('users', 'chats.user_id', '=', 'users.id')
+            ->select('chats.message', 'users.nickname as user_nickname')
+            ->where('chats.id', $roomId)
+            ->get();
 
             return response()->json(
                 [

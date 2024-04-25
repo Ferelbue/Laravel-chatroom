@@ -8,4 +8,20 @@ use Illuminate\Database\Eloquent\Model;
 class Chat extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'message',
+        'user_id',
+        'room_id',
+    ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id', 'users');
+    }
+
+    public function room()
+    {
+        return $this->belongsTo(Room::class, 'room_id', 'id', 'rooms');
+    }
 }
