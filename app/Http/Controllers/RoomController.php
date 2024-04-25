@@ -157,13 +157,14 @@ class RoomController extends Controller
                 );
             }
 
-            $roomToUpdate->update($request->only(array_keys($validatedData)));
+            $roomToUpdate->fill($request->only(array_keys($validatedData)));
+            $roomToUpdate->save();
     
             return response()->json(
                 [
                     "Success" => true,
                     "Message" => "Room updated successfully",
-                    "Data" => $room
+                    "Data" => $roomToUpdate
                 ],
                 200
             );
