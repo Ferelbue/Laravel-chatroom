@@ -17,7 +17,7 @@ class Admin
      */
     public function handle(Request $request, Closure $next)
     {  
-        if(auth()->user()->role !== 'admin'){
+        if(auth()->user()->role !== 'admin' && auth()->user()->role !== 'super_admin'){
             return response()->json([
                 'success' => false,
                 'message' => 'You are not an admin'
