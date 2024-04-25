@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Chat;
-use App\Models\Game;
 use Illuminate\Http\Request;
 
 class ChatController extends Controller
@@ -45,22 +44,20 @@ class ChatController extends Controller
     {
         try {
 
+            $userId = auth()->user()->id;
 
-            //me trae solo los mios
-            // $chat = Chat::select('message', 'user_id')
-            // -> where('user_id', auth()->user()->id)
-            // -> get();
-
-            $chat = Chat::join('users', 'chats.user_id', '=', 'users.id')
-            ->select('chats.message', 'users.nickname as user_nickname')
-            ->where('chats.id', $roomId)
+            $chats = Chat::where('room_id', $roomId)
+            // ->whereHas('room.users', function ($query) use ($userId) {
+            //     $query->where('users.id', $userId);
+            // })
+            ->with('user:id,nickname')
             ->get();
 
             return response()->json(
                 [
                     "success" => true,
                     "message" => "Chats retrieved successfully",
-                    "data" => $chat
+                    "data" => $chats
                 ],
                 200
             );

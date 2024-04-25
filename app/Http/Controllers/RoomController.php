@@ -232,7 +232,7 @@ class RoomController extends Controller
             }
             $userId = auth()->user()->id;
             
-            $room->users()->attach($userId);
+            $room->users()->attach($userId, ["created_at" => now(), "updated_at" => now()]);
     
             return response()->json(
                 [

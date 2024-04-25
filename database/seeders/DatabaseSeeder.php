@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
         $games= \App\Models\Game::factory(5)->create();
         $users = \App\Models\User::factory(10)->create();
         $rooms = \App\Models\Room::factory(5)->create()->each(function ($room) use ($users, $games) {
-            $room->users()->attach($users->random()->id);
+            $room->users()->attach($users->random()->id, ["created_at" => now(), "updated_at" => now()]);
             $room->game_id = $games->random()->id;
             $room->save();
         });
