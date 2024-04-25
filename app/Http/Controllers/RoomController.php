@@ -46,7 +46,12 @@ class RoomController extends Controller
     public function getRooms()
     {
         try {
-            $rooms = Room::all();
+            // $rooms = Room::all();
+            $rooms = Room::with([
+                'game',
+                'user:id,nickname',
+                'users:id,nickname'
+            ])->get();
     
             return response()->json(
                 [
@@ -178,7 +183,12 @@ class RoomController extends Controller
     public function getRoom($id)
     {
         try {
-            $room = Room::find($id);
+            // $room = Room::find($id);
+            $room = Room::with([
+                'game',
+                'user:id,nickname',
+                'users:id,nickname'
+            ])->find($id);
             if (!$room) {
                 return response()->json(
                     [
