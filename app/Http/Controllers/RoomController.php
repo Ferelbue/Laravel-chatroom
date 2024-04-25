@@ -265,8 +265,10 @@ class RoomController extends Controller
     public function leaveRoom(Request $request, $id)
     {
         try {
+            $userId = auth()->user()->id;
+            
             $room = Room::find($id);
-            if (!$room) {
+            if (!$room || !$room->users->contains($userId)) {
                 return response()->json(
                     [
                         "Success" => false,
@@ -275,7 +277,6 @@ class RoomController extends Controller
                     404
                 );
             }
-            $userId = auth()->user()->id;
             
             $room->users()->detach($userId);
     
@@ -283,7 +284,6 @@ class RoomController extends Controller
                 [
                     "Success" => true,
                     "Message" => "User left room successfully",
-                    "Data" => $room
                 ],
                 200
             );

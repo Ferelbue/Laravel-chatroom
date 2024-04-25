@@ -35,7 +35,7 @@ Route::put('/rooms/{id}', [RoomController::class, 'editRoom'])->middleware('auth
 Route::delete('/rooms/{id}', [RoomController::class, 'deleteRoom'])->middleware('auth:sanctum');
 Route::get('/rooms/{id}', [RoomController::class, 'getRoom']);
 Route::post('/rooms/{id}/join', [RoomController::class, 'joinRoom'])->middleware('auth:sanctum');
-Route::post('/rooms/{id}/leave', [RoomController::class, 'leaveRoom'])->middleware('auth:sanctum');
+Route::delete('/rooms/{id}/leave', [RoomController::class, 'leaveRoom'])->middleware('auth:sanctum');
 
 // AUTH ROUTES
 Route::post('/login', [AuthController::class, 'login']);
