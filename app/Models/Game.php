@@ -14,4 +14,9 @@ class Game extends Model
         'description',
         'user_id',
     ];
+
+    public function room()
+    {
+        return $this->hasMany(Room::class);
+    }
 }
