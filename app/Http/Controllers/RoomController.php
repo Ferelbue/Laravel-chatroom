@@ -12,11 +12,16 @@ class RoomController extends Controller
         try {
             $validatedData = $request->validate([
                 'name' => 'required|max:55',
-                'user_id' => 'required|exists:users,id',
                 'game_id' => 'required|exists:games,id',
             ]);
+            $userId = auth()->user()->id;
+
+            $room = new Room();
+            $room->name = $request->name;
+            $room->game_id = $request->game_id;
+            $room->user_id = $userId;
     
-            $room = Room::create($validatedData);
+            $room->save();
     
             return response()->json(
                 [
@@ -76,6 +81,16 @@ class RoomController extends Controller
                     404
                 );
             }
+            $userId = auth()->user()->id;
+            if ($room->user_id !== $userId) {
+                return response()->json(
+                    [
+                        "Success" => false,
+                        "Message" => "You are not authorized to delete this room",
+                    ],
+                    403
+                );
+            }
             
             $room->delete();
     
@@ -111,13 +126,34 @@ class RoomController extends Controller
                     404
                 );
             }
+
+            $userId = auth()->user()->id;
             $validatedData = $request->validate([
-                'name' => 'required|max:55',
-                'user_id' => 'required|exists:users,id',
-                'game_id' => 'required|exists:games,id',
+                'name' => 'max:55',
+                'game_id' => 'exists:games,id',
             ]);
+            $roomToUpdate = Room::find($id);
+            if (!$roomToUpdate) {
+                return response()->json(
+                    [
+                        "Success" => false,
+                        "Message" => "Room not found",
+                    ],
+                    404
+                );
+            }
             
-            $room->update($request->only($validatedData));
+            if ($roomToUpdate->user_id !== $userId) {
+                return response()->json(
+                    [
+                        "Success" => false,
+                        "Message" => "You are not authorized to edit this room",
+                    ],
+                    403
+                );
+            }
+
+            $roomToUpdate->update($request->only(array_keys($validatedData)));
     
             return response()->json(
                 [
