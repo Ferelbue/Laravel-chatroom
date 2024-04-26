@@ -157,13 +157,14 @@ class RoomController extends Controller
                 );
             }
 
-            $roomToUpdate->update($request->only(array_keys($validatedData)));
+            $roomToUpdate->fill($request->only(array_keys($validatedData)));
+            $roomToUpdate->save();
     
             return response()->json(
                 [
                     "Success" => true,
                     "Message" => "Room updated successfully",
-                    "Data" => $room
+                    "Data" => $roomToUpdate
                 ],
                 200
             );
@@ -186,7 +187,14 @@ class RoomController extends Controller
                 'game',
                 'user:id,nickname',
                 'users:id,nickname'
-            ])->find($id);
+            ])
+            ->where('game_id', $id)
+            ->get();
+            // $room = Room::with([
+            //     'game',
+            //     'user:id,nickname',
+            //     'users:id,nickname'
+            // ])->find($id);
             if (!$room) {
                 return response()->json(
                     [
@@ -257,8 +265,10 @@ class RoomController extends Controller
     public function leaveRoom(Request $request, $id)
     {
         try {
+            $userId = auth()->user()->id;
+            
             $room = Room::find($id);
-            if (!$room) {
+            if (!$room || !$room->users->contains($userId)) {
                 return response()->json(
                     [
                         "Success" => false,
@@ -267,7 +277,6 @@ class RoomController extends Controller
                     404
                 );
             }
-            $userId = auth()->user()->id;
             
             $room->users()->detach($userId);
     
@@ -275,7 +284,6 @@ class RoomController extends Controller
                 [
                     "Success" => true,
                     "Message" => "User left room successfully",
-                    "Data" => $room
                 ],
                 200
             );

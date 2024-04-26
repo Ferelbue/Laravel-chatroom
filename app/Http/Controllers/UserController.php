@@ -63,7 +63,7 @@ class UserController extends Controller
             //validate request
             $validator = $request->validate([
                 'name' => 'required|max:50',
-                'nickName' => 'required|max:50',
+                'nickname' => 'required|max:50',
                 'email' => 'required|email',
                 'password' => 'required|min:6',
             ]);
@@ -74,7 +74,7 @@ class UserController extends Controller
             //create user
             $user = new User();
             $user->name = $request->input('name');
-            $user->nickName = $request->input('nickName');
+            $user->nickname = $request->input('nickname');
             $user->email = $request->input('email');
             $user->password = $hashPassword;;
             $user->save();
@@ -105,9 +105,19 @@ class UserController extends Controller
             // Find user by id
             $user = User::find($id);
 
+            // Check if user exists
+            if (!$user) {
+                return response()->json(
+                    [
+                        "success" => false,
+                        "message" => "User not found",
+                    ],
+                    404
+                );
+            }
             // Read request data
             $name = $request->input('name');
-            $nickName = $request->input('nickName');
+            $nickname = $request->input('nickname');
             $email = $request->input('email');
             $password = $request->input('password');
 
@@ -115,8 +125,8 @@ class UserController extends Controller
             if ($name) {
                 $user->name = $name;
             }
-            if ($nickName) {
-                $user->nickName = $nickName;
+            if ($nickname) {
+                $user->nickname = $nickname;
             }
             if ($email) {
                 $user->email = $email;
