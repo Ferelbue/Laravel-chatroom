@@ -1,66 +1,284 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# LARAVEL CHATROOM APP
+![db_laravel](./img/logo.png)
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+<details>
+  <summary>Content</summary>
+  <ol>
+    <li><a href="#about-the-project">About the project</a></li>
+    <li><a href="#stack">Stack</a></li>
+    <li><a href="#database-diagram">Database diagram</a></li>
+    <li><a href="#local-installation">Local installation</a></li>
+    <li><a href="#credentials">Credentials</a></li>
+    <li><a href="#endpoints">Endpoints</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ol>
+</details>
 
-## About Laravel
+## About the project
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+This was a project developed for an FSD bootcamp at Geekshubs academy. The project was developed over the course of 4 days. 
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+The goal was to make an API rest that managed chat rooms based on games. An additional goal was learning how to work in teams and using pull request and conflict management. 
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+The project had to be developed in php laravel and include the following endpoints:
 
-## Learning Laravel
+-login
+-register
+-create room
+-get room by game
+-join room
+-leave room
+-post message/chat
+-update profile
+-logout
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Stack
+Technologies used:
+<div align="center">
+<a href="https://www.mysql.com/">
+    <img src= "https://img.shields.io/badge/MySQL-00000F?style=for-the-badge&logo=mysql&logoColor=white"/>
+</a>
+<a href="https://www.php.net/">
+    <img src= "https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white"/>
+</a>
+<a href="https://laravel.com/">
+    <img src= "https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white"/>
+</a>
+<a href="https://getcomposer.org/">
+    <img src= "https://img.shields.io/badge/Composer-885630?style=for-the-badge&logo=Composer&logoColor=white"/>
+</a>
+  <a href="https://git-scm.com/">
+    <img src="https://img.shields.io/badge/GIT-E44C30?style=for-the-badge&logo=git&logoColor=white"/>
+</a>
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+</div>
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
-## Laravel Sponsors
+## Database diagram
+![db_laravel](./img/database.png)
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+## Local installation
+1. Clone the repository
+2. ` $ php artisan install `
+3. Set the .env file and adjust the params for the database.
+4. Connect to the database.
+5. ``` $ php artisan migrate ```
+6. ``` $ php artisan db:seed "here put the name of the seed" ``` 
+7. ``` $ php artisan serve ``` 
 
-### Premium Partners
+## Credentials
+    These are some of the credentials provided in the seeder.
+    - user@user.com, password: 123456
+    (To check chats in a room, 'user' is in room 1 and room 1 is guaranteed to have chats)
+    - admin@admin.com, password: 123456
+    - superadmin@superadmin.com, password:123456
+## Endpoints
+<details>
+<summary>Endpoints</summary>
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+- AUTH
 
-## Contributing
+    - REGISTER
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+            POST http://localhost:8000/api/register
+        body:
+        ``` json
+            {
+                "name": "",
+                "nickname": "",
+                "email": "",
+                "password": ""
+            }
+        ```
 
-## Code of Conduct
+    - LOGIN
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+            POST http://localhost:8000/api/login 
+        body:
+        ``` json
+            {
+                "email": "",
+                "password": ""
+            }
+        ```
+    - PROFILE
 
-## Security Vulnerabilities
+            GET http://localhost:8000/api/profile
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+    - LOGOUT
 
-## License
+            POST http://localhost:8000/api/logout
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+ - USERS
+ 
+    -   GET ALL USERS
+
+            GET http://localhost:8000/api/users?name=&page=&limit=
+
+    -   CREATE USERS
+
+            POST http://localhost:8000/api/users
+        body:
+        ``` json
+            {
+                "name": "",
+                "nickname": "",
+                "email": "",
+                "password": ""
+            }
+        ```
+            
+    -   DELETE USER BY ID
+
+             DELETE http://localhost:8000/api/users/{id}
+
+    -    UPDATE USER BY ID
+
+             PUT http://localhost:8000/api/users/{id}
+         body:
+           ``` json
+            {
+                "name": "",
+                "nickname": "",
+                "email": "",
+                "password": ""
+            }
+     
+- GAMES
+ 
+    - CREATE GAME (Auth: ADMIN/SUPERADMIN)
+
+            POST http://localhost:8000/api/games
+        body:
+        ``` json
+            {
+                "title": "example1",
+                "description": "example1"
+            }
+    
+   
+    - DELETE GAME (Auth: ADMIN/SUPERADMIN)
+
+            DELETE http://localhost:8000/api/games/{id}
+
+    - GET GAMES
+
+            GET http://localhost:8000/api/games
+
+
+    - UPDATE GAME BY ID (Auth: ADMIN/SUPERADMIN)
+
+            UPDATE http://localhost:8000/api/games/{id}
+        body:
+         ``` json
+            {
+                "title": "example1",
+                "description": "example1"
+            }
+         ```
+    - GET GAME BY ID
+
+            GET http://localhost:8000/api/games/{id}  
+
+- ROOMS
+    - CREATE ROOM 
+
+            POST http://localhost:8000/api/rooms
+        body:
+        ``` json
+            {
+                "name": "", //required || name of the room
+                "game_id": "" //required || id of the game the room is based on                
+            }
+        ```
+        header:
+        auth bearer: token
+  
+    - GET ROOM 
+
+            POST http://localhost:8000/api/rooms
+       
+
+    - UPDATE ROOM 
+
+            PUT http://localhost:8000/api/rooms/{id}
+      body:
+        ``` json
+            {
+                "name": "", //optional || name to update to max 55 chars 
+                "game_id": "" //optional ||id of the new game for the room
+            }
+        ```
+
+    header: auth bearer. Token of the author of the room.
+    params: id of the room to be updated.
+
+    - DELETE ROOM 
+
+            DELETE http://localhost:8000/api/rooms/{id}
+
+    - GET ROOM BY ID
+
+            GET http://localhost:8000/api/rooms/{id}
+
+    - JOIN ROOM
+
+            POST  GET http://localhost:8000/api/rooms/{id}/join
+
+    Header: auth bearer. token
+    Params: id of the room to join
+    (validated so a user can not join a room they are already in)
+
+    - LEAVE ROOM
+
+            GET http://localhost:8000/api/rooms/{id}/leave
+
+    Header: auth bearer. token
+    Params: id of the room to join
+    (validated so a user can not leave a room they are not in)
+
+
+- CHATS
+ 
+    - CREATE CHAT 
+
+            POST http://localhost:8000/api/chats
+        body:
+        ``` json
+            {
+                "message": " ",
+                "room_id": " "
+            }
+        ```
+   
+    - DELETE CHAT BY ID
+
+            DELETE http://localhost:8000/api/chats/{id}
+
+    - GET ALL CHATS ONE ROOM
+
+            GET http://localhost:8000/api/chats/{id}
+
+
+    - UPDATE CHAT BY ID 
+
+        
+        
+
+
+
+</details>
+
+## Contact
+- **Pedro Fernández** - Project Developer
+  - [GitHub](https://github.com/Eryhnar) - [LinkedIn](https://www.linkedin.com/in/pedro-fernandez-bel-68a2b9155/)
+
+- **Claudia Álvaro** - Project Developer
+  - [GitHub](https://github.com/klauha) - [LinkedIn](https://www.linkedin.com/in/claudia-álvaro-cano-47860538/)
+
+- **Fernando Elegido** - Project Developer
+  - [GitHub](https://github.com/Ferelbue) - [LinkedIn](https://www.linkedin.com/in/fernando-elegido//)
+
+- **Victor Blasco** - Project Developer
+  - [GitHub](https://github.com/VictorBlasco5) - [LinkedIn](https://www.linkedin.com/in/víctor-blasco-4b7588304//)

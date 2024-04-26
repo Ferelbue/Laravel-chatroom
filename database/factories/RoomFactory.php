@@ -3,12 +3,11 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
  */
-class UserFactory extends Factory
+class RoomFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -19,10 +18,8 @@ class UserFactory extends Factory
     {
         return [
             'name' => $this->faker->name,
-            'nickname' => $this->faker->userName,
-            'email' => $this->faker->unique()->safeEmail,
-            'password' => bcrypt('123456')
+            'user_id' => rand(1, 10),
+            'game_id' => rand(1, 5),
         ];
     }
-
 }
