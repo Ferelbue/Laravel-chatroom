@@ -1,4 +1,5 @@
 # LARAVEL CHATROOM APP
+![db_laravel](./img/logo.png)
 
 <details>
   <summary>Content</summary>
@@ -39,7 +40,7 @@ Technologies used:
 
 
 ## Database diagram
-![db_laravel](https://)
+![db_laravel](./img/database.png)
 
 ## Local installation
 1. Clone the repository
@@ -128,7 +129,6 @@ Technologies used:
                 "password": ""
             }
      
-
 - GAMES
  
     - CREATE GAME (Auth: ADMIN/SUPERADMIN)
@@ -140,7 +140,7 @@ Technologies used:
                 "title": "example1",
                 "description": "example1"
             }
-        ```
+    
    
     - DELETE GAME (Auth: ADMIN/SUPERADMIN)
 
@@ -160,7 +160,7 @@ Technologies used:
                 "title": "example1",
                 "description": "example1"
             }
-        ```
+         ```
     - GET GAME BY ID
 
             GET http://localhost:8000/api/games/{id}  
@@ -215,7 +215,7 @@ Technologies used:
             GET http://localhost:8000/api/rooms/{id}/leave
 
 
-   - CHATS
+- CHATS
  
     - CREATE CHAT 
 
