@@ -21,13 +21,27 @@ class DatabaseSeeder extends Seeder
         });
         \App\Models\Chat::factory(10)->create();
 
-        \App\Models\User::factory()->create([
+        $user = \App\Models\User::factory()->create([
             'name' => 'user',
             'nickname' => 'user',
             'email' => 'user@user.com',
             'password' => bcrypt('123456'),
             'role' => 'user'
         ]);
+        $room1 = \App\Models\Room::find(1);
+        
+        if ($room1) {
+            $room1->users()->attach($user->id, ["created_at" => now(), "updated_at" => now()]);
+            for ($i = 0; $i < 10; $i++) {
+                $user = \App\Models\User::inRandomOrder()->first();
+    
+                \App\Models\Chat::create([
+                    'message' => 'Hello',
+                    'user_id' => $user->id,
+                    'room_id' => $room1->id,
+                ]);
+            }
+        }       
         \App\Models\User::factory()->create([
             'name' => 'admin',
             'nickname' => 'admin',
@@ -42,5 +56,6 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('123456'),
             'role' => 'super_admin'
         ]);
+
     }
 }
