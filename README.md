@@ -223,7 +223,8 @@ Technologies used:
         body:
         ``` json
             {
-                
+                "message": " ",
+                "room_id": " "
             }
         ```
    
@@ -231,21 +232,28 @@ Technologies used:
 
             DELETE http://localhost:8000/api/chats/{id}
 
-    - GET CHATS
+    - GET AL CHATS ONE ROOM
 
-            GET http://localhost:8000/api/chats
+            GET http://localhost:8000/api/chats/{id}
 
 
     - UPDATE CHAT BY ID 
 
-            UPDATE http://localhost:8000/api/chats/{id}
-        body:
-         ``` json
-            {
-              
-            }
-        ```
-    
+        
+        
+## Contact
+- **Pedro Fernández** - Project Developer
+  - [GitHub](https://github.com/Eryhnar) - [LinkedIn](https://www.linkedin.com/in/pedro-fernandez-bel-68a2b9155/)
+
+- **Claudia Álvaro** - Project Developer
+  - [GitHub](https://github.com/klauha) - [LinkedIn](https://www.linkedin.com/in/claudia-álvaro-cano-47860538/)
+
+- **Fernando Elegido** - Project Developer
+  - [GitHub](https://github.com/Ferelbue) - [LinkedIn](https://www.linkedin.com/in/fernando-elegido//)
+
+- **Victor Blasco** - Project Developer
+  - [GitHub](https://github.com/VictorBlasco5) - [LinkedIn](https://www.linkedin.com/in/víctor-blasco-4b7588304//)
+
 
 
 </details>
