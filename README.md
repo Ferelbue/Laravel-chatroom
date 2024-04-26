@@ -16,6 +16,21 @@
 
 ## About the project
 
+This was a project developed for an FSD bootcamp at Geekshubs academy. The project was developed over the course of 4 days. 
+
+The goal was to make an API rest that managed chat rooms based on games. An additional goal was learning how to work in teams and using pull request and conflict management. 
+
+The project had to be developed in php laravel and include the following endpoints:
+
+-login
+-register
+-create room
+-get room by game
+-join room
+-leave room
+-post message/chat
+-update profile
+-logout
 
 ## Stack
 Technologies used:
@@ -54,6 +69,7 @@ Technologies used:
 ## Credentials
     These are some of the credentials provided in the seeder.
     - user@user.com, password: 123456
+    (To check chats in a room, 'user' is in room 1 and room 1 is guaranteed to have chats)
     - admin@admin.com, password: 123456
     - superadmin@superadmin.com, password:123456
 ## Endpoints
@@ -172,9 +188,12 @@ Technologies used:
         body:
         ``` json
             {
-                
+                "name": "", //required || name of the room
+                "game_id": "" //required || id of the game the room is based on                
             }
         ```
+        header:
+        auth bearer: token
   
     - GET ROOM 
 
@@ -187,9 +206,13 @@ Technologies used:
       body:
         ``` json
             {
-            
+                "name": "", //optional || name to update to max 55 chars 
+                "game_id": "" //optional ||id of the new game for the room
             }
         ```
+
+    header: auth bearer. Token of the author of the room.
+    params: id of the room to be updated.
 
     - DELETE ROOM 
 
@@ -203,16 +226,17 @@ Technologies used:
 
             POST  GET http://localhost:8000/api/rooms/{id}/join
 
-      body:
-        ``` json
-            {
-            
-            }
+    Header: auth bearer. token
+    Params: id of the room to join
+    (validated so a user can not join a room they are already in)
 
-        ```
     - LEAVE ROOM
 
             GET http://localhost:8000/api/rooms/{id}/leave
+
+    Header: auth bearer. token
+    Params: id of the room to join
+    (validated so a user can not leave a room they are not in)
 
 
 - CHATS
@@ -232,7 +256,7 @@ Technologies used:
 
             DELETE http://localhost:8000/api/chats/{id}
 
-    - GET AL CHATS ONE ROOM
+    - GET ALL CHATS ONE ROOM
 
             GET http://localhost:8000/api/chats/{id}
 
@@ -241,6 +265,11 @@ Technologies used:
 
         
         
+
+
+
+</details>
+
 ## Contact
 - **Pedro Fernández** - Project Developer
   - [GitHub](https://github.com/Eryhnar) - [LinkedIn](https://www.linkedin.com/in/pedro-fernandez-bel-68a2b9155/)
@@ -253,8 +282,3 @@ Technologies used:
 
 - **Victor Blasco** - Project Developer
   - [GitHub](https://github.com/VictorBlasco5) - [LinkedIn](https://www.linkedin.com/in/víctor-blasco-4b7588304//)
-
-
-
-</details>
-
